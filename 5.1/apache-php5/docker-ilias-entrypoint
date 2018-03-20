@@ -61,9 +61,9 @@ level = WARNING
 error_path = ${ILIAS_ILIASDATA_PATH}/errors
 
 [https]
-auto_https_detect_enabled = 0
-auto_https_detect_header_name = 
-auto_https_detect_header_value = 
+auto_https_detect_enabled = 1
+auto_https_detect_header_name = X_FORWARDED_PROTO
+auto_https_detect_header_value = https
 "
 ILIAS_CLIENT_INI="
 ; <?php exit; ?>
