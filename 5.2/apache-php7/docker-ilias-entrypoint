@@ -166,6 +166,14 @@ if [ ! -d "${ILIAS_DATA_PATH}/${ILIAS_CLIENT_NAME}" ]; then
             passwd_enc_type = 'md5'
         WHERE usr_id = 6"
 
+    echo "Setting skin/style"
+    ${mysql} -e "UPDATE usr_pref SET
+            value = '${ILIAS_DEFAULT_SKIN}'
+        WHERE keyword = 'skin'"
+    ${mysql} -e "UPDATE usr_pref SET
+            value = '${ILIAS_DEFAULT_STYLE}'
+        WHERE keyword = 'style'"
+
     echo "======================================================="
     echo "ILIAS installed successfully!"
     echo "Log in using the following credentials:"
