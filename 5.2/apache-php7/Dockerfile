@@ -19,7 +19,7 @@ xdebug.profiler_output_dir = /var/iliasdata" \
 
 RUN echo "error_reporting = E_ALL & ~E_NOTICE & ~E_WARNING & ~E_STRICT\n\
 display_errors = On" \
-> /usr/local/etc/php/conf.d/ilias.ini
+> /usr/local/etc/php/conf.d/ilias-dev.ini
 
 COPY docker-ilias-entrypoint /usr/local/bin/
 COPY install-ilias /usr/local/bin/
