@@ -1,7 +1,5 @@
 FROM sturai/ilias:5.3
 
-RUN apt-get update && apt-get install -y mysql-client
-
 RUN pecl install xdebug
 
 RUN curl -sS https://getcomposer.org/installer \
