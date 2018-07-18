@@ -13,7 +13,9 @@ xdebug.remote_log = /var/log/xdebug.log\n\
 xdebug.idekey = PHPSTORM\n\
 xdebug.profiler_enable_trigger = 1\n\
 xdebug.profiler_output_dir = /var/iliasdata" \
-> /usr/local/etc/php/conf.d/xdebug.ini && touch /var/log/xdebug.log
+> /usr/local/etc/php/conf.d/xdebug.ini \
+    && touch /var/log/xdebug.log \
+    && chown www-data /var/log/xdebug.log
 
 RUN echo "error_reporting = E_ALL & ~E_NOTICE & ~E_WARNING & ~E_STRICT\n\
 display_errors = On" \
