@@ -1,18 +1,29 @@
 IMAGE = sturai/ilias-dev
-BRANCHES = 5.1 5.2 5.3
 
-build = \
-    docker build --rm \
-        -t $(IMAGE):$(1) \
-        -t $(IMAGE):$(1)-$(2) \
-        $(1)/$(2)
+variants = $(sort $(wildcard */*/Dockerfile))
+variant  = $$(basename $$(dirname $1))
+branch   = $$(basename $$(dirname $$(dirname $1)))
 
-.PHONY: build
-build:
-	for branch in $(BRANCHES); do \
-		for variant in $$branch/*; do \
-			variant=$$(basename $$variant); \
-			$(call build,$$branch,$$variant); \
-		done; \
-	done; \
-	docker tag $(IMAGE):$$branch $(IMAGE):latest
+.ONESHELL:
+
+all: $(variants) tag
+
+.PHONY: $(variants)
+$(variants):
+	variant=$(call variant,$@)
+	branch=$(call branch,$@)
+	docker build --rm \
+		-t $(IMAGE):$$branch \
+		-t $(IMAGE):$$branch-$$variant \
+		$$branch/$$variant
+
+.PHONY: tag
+tag: $(variants)
+	latest=$(lastword $(variants))
+	variant=$(call variant,$$latest)
+	branch=$(call branch,$$latest)
+	docker tag $(IMAGE):$$branch-$$variant $(IMAGE):latest
+
+.PHONY: push
+push:
+	docker push $(IMAGE)
