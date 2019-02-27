@@ -15,9 +15,10 @@ $(variants):
 	variant=$(call variant,$@)
 	branch=$(call branch,$@)
 	docker build --rm \
+		-f $$branch/$$variant/Dockerfile \
 		-t $(IMAGE):$$branch \
 		-t $(IMAGE):$$branch-$$variant \
-		$$branch/$$variant
+		.
 
 .PHONY: tag
 tag: $(variants)
