@@ -1,32 +1,49 @@
-IMAGE = sturai/ilias-dev
+IMAGE_NAME ?= sturai/ilias-dev
 
-variants   = $(sort $(wildcard */*/Dockerfile))
-unreleased = $(wildcard *alpha*/*/Dockerfile) $(wildcard *beta*/*/Dockerfile)
+IMAGES = 5.1/php5.6-apache \
+	5.2/php5.6-apache \
+	5.2/php7.0-apache \
+	5.2/php7.1-apache \
+	5.3/php5.6-apache \
+	5.3/php7.0-apache \
+	5.3/php7.1-apache \
+	5.4-beta/php7.0-apache \
+	5.4-beta/php7.1-apache
 
-variant = $$(basename $$(dirname $1))
-branch  = $$(basename $$(dirname $$(dirname $1)))
+LATEST = 5.3/php7.1-apache
+
+variant = $$(basename $1)
+branch  = $$(basename $$(dirname $1))
+tag     = $$(echo $1 | sed 's|/|-|')
 
 .ONESHELL:
 
-all: $(variants) tag
+all: $(IMAGES) tag
 
-.PHONY: $(variants)
-$(variants):
-	variant=$(call variant,$@)
-	branch=$(call branch,$@)
+.PHONY: $(IMAGES)
+$(IMAGES):
+	@variant=$(call variant,$@)
+	@branch=$(call branch,$@)
+	@echo "Building $(IMAGE_NAME):$$branch-$$variant"
 	docker build --rm \
-		-f $$branch/$$variant/Dockerfile \
-		-t $(IMAGE):$$branch \
-		-t $(IMAGE):$$branch-$$variant \
+		-f $$branch/Dockerfile \
+		--build-arg ILIAS_VERSION=$$branch-$$variant \
+		-t $(IMAGE_NAME):$$branch-$$variant \
 		.
 
 .PHONY: tag
-tag: $(variants)
-	latest=$(lastword $(filter-out $(unreleased),$(variants)))
-	variant=$(call variant,$$latest)
-	branch=$(call branch,$$latest)
-	docker tag $(IMAGE):$$branch-$$variant $(IMAGE):latest
+tag: $(LATEST)
+	@for i in $(IMAGES); do \
+		variant=$(call variant,$$i);
+		branch=$(call branch,$$i);
+		tag=$(call tag,$$i);
+		echo "Tagging $(IMAGE_NAME):$$tag as $(IMAGE_NAME):$$branch"; \
+		docker tag $(IMAGE_NAME):$$tag $(IMAGE_NAME):$$branch; \
+	done
+	@latest=$(IMAGE_NAME):$(call tag,$(LATEST))
+	@echo "Tagging $$latest as latest"
+	docker tag $$latest $(IMAGE_NAME):latest
 
 .PHONY: push
 push:
-	docker push $(IMAGE)
+	docker push $(IMAGE_NAME)

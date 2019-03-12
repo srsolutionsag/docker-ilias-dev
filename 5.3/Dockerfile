@@ -1,6 +1,15 @@
-FROM sturai/ilias:5.2-php5.6-apache
+ARG ILIAS_VERSION
 
-RUN pecl install xdebug-2.5.5
+FROM sturai/ilias:${ILIAS_VERSION}
+
+RUN case ${PHP_VERSION} in \
+    5.6*) \
+        pecl install xdebug-2.5.5 \
+        ;; \
+    *) \
+        pecl install xdebug \
+        ;; \
+    esac
 
 RUN curl -sS https://getcomposer.org/installer \
     | php -- --install-dir=/usr/local/bin --filename=composer

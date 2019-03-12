@@ -1,4 +1,6 @@
-FROM sturai/ilias:5.4-beta-php7.0-apache
+ARG ILIAS_VERSION
+
+FROM sturai/ilias:${ILIAS_VERSION}
 
 RUN pecl install xdebug
 
