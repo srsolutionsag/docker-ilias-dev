@@ -2,6 +2,8 @@ ARG ILIAS_VERSION
 
 FROM sturai/ilias:${ILIAS_VERSION}
 
+ENV ILIAS_DEVMODE=1
+
 RUN case ${PHP_VERSION} in \
     5.6*) \
         pecl install xdebug-2.5.5 \
