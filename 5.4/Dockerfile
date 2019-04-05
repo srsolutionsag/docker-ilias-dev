@@ -2,6 +2,8 @@ ARG ILIAS_VERSION
 
 FROM sturai/ilias:${ILIAS_VERSION}
 
+ENV ILIAS_DEVMODE=1
+
 RUN pecl install xdebug
 
 RUN curl -sS https://getcomposer.org/installer \
