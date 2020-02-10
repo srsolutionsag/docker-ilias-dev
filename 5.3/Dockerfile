@@ -26,7 +26,7 @@ xdebug.remote_port = 9000\n\
 xdebug.remote_log = /var/log/xdebug.log\n\
 xdebug.idekey = PHPSTORM\n\
 xdebug.profiler_enable_trigger = 1\n\
-xdebug.profiler_output_dir = /var/iliasdata" \
+xdebug.profiler_output_dir = /var/iliasdata/ilias" \
 > /usr/local/etc/php/conf.d/xdebug.ini \
     && touch /var/log/xdebug.log \
     && chown www-data /var/log/xdebug.log
