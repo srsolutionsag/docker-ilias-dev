@@ -8,6 +8,9 @@ RUN case ${PHP_VERSION} in \
     5.6*) \
         pecl install xdebug-2.5.5 \
         ;; \
+    7.0*) \
+        pecl install xdebug-2.8.1 \
+        ;; \
     *) \
         pecl install xdebug \
         ;; \
