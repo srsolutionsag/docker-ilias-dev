@@ -7,7 +7,7 @@ ENV ILIAS_DEVMODE=1
 RUN pecl install xdebug
 
 RUN curl -sS https://getcomposer.org/installer \
-    | php -- --install-dir=/usr/local/bin --filename=composer
+    | php -- --version=1.10.17 --install-dir=/usr/local/bin --filename=composer
 
 RUN echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)\n\
 xdebug.remote_enable = 1\n\
