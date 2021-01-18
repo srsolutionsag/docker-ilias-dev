@@ -4,7 +4,7 @@ FROM sturai/ilias:${ILIAS_VERSION}
 
 ENV ILIAS_DEVMODE=1
 
-RUN pecl install xdebug
+RUN pecl install xdebug-2.9.8
 
 RUN curl -sS https://getcomposer.org/installer \
     | php -- --version=1.10.17 --install-dir=/usr/local/bin --filename=composer
