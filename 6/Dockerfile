@@ -6,9 +6,6 @@ ENV ILIAS_DEVMODE=1
 
 RUN pecl install xdebug
 
-RUN curl -sS https://getcomposer.org/installer \
-    | php -- --version=1.10.17 --install-dir=/usr/local/bin --filename=composer
-
 RUN echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)\n\
 xdebug.mode = develop,debug,profile\n\
 xdebug.discover_client_host = true\n\
