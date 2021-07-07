@@ -1,6 +1,6 @@
 ARG ILIAS_VERSION
 
-FROM sturai/ilias:${ILIAS_VERSION}
+FROM sturai/ilias-base:${ILIAS_VERSION}
 
 ENV ILIAS_DEVMODE=1
 
