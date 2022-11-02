@@ -4,9 +4,11 @@ FROM srsolutions/ilias-base:${ILIAS_VERSION}
 
 ENV ILIAS_DEVMODE=1
 
-RUN pecl install xdebug
+# TODO: Reinstall xdebug once available for PHP 8.2
+RUN php --version | grep "PHP 8.2" || pecl install xdebug
 
-RUN echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)\n\
+RUN php --version | grep "PHP 8.2" || \
+    echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)\n\
 xdebug.mode = develop,debug,profile\n\
 xdebug.discover_client_host = true\n\
 xdebug.client_port = 9000\n\
