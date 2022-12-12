@@ -4,12 +4,7 @@ FROM srsolutions/ilias-base:${ILIAS_VERSION}
 
 ENV ILIAS_DEVMODE=1
 
-RUN if php --version | grep "PHP 8.2" ; then \
-        # TODO: Install release version of xdebug when available
-        pecl install xdebug-3.2.0RC1; \
-    else \
-        pecl install xdebug; \
-    fi
+RUN pecl install xdebug
 
 RUN echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)\n\
 xdebug.mode = develop,debug,profile\n\
