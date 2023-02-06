@@ -4,7 +4,14 @@ FROM srsolutions/ilias-base:${ILIAS_VERSION}
 
 ENV ILIAS_DEVMODE=1
 
-RUN pecl install xdebug
+RUN case ${PHP_VERSION} in \
+    7.4*) \
+        pecl install xdebug-3.1.6 \
+        ;; \
+    8.0) \
+        pecl install xdebug \
+        ;; \
+    esac
 
 RUN echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)\n\
 xdebug.mode = develop,debug,profile\n\
