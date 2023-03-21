@@ -4,6 +4,9 @@ FROM srsolutions/ilias-base:${ILIAS_VERSION}
 
 ENV ILIAS_DEVMODE=1
 
+RUN curl -sS https://getcomposer.org/installer \
+    | php -- --2 --install-dir=/usr/local/bin --filename=composer
+
 RUN pecl install xdebug
 
 RUN echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)\n\
