@@ -7,6 +7,14 @@ ENV ILIAS_DEVMODE=1
 RUN curl -sS https://getcomposer.org/installer \
     | php -- --2 --install-dir=/usr/local/bin --filename=composer
 
+ARG NODE_VERSION=18.15.0
+RUN curl -o /opt/node.tar.xz -SL https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.xz \
+    && mkdir /opt/node \
+    && tar -xJf /opt/node.tar.xz -C /opt/node --strip-components=1 --no-same-owner \
+    && rm /opt/node.tar.xz \
+    && ln -s /opt/node/bin/node /usr/local/bin/node \
+    && ln -s /opt/node/bin/npm /usr/local/bin/npm
+
 RUN pecl install xdebug
 
 RUN echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)\n\
