@@ -28,6 +28,6 @@ xdebug.output_dir = /var/iliasdata/ilias" \
     && touch /var/log/xdebug.log \
     && chown www-data /var/log/xdebug.log
 
-RUN echo "error_reporting = E_ALL & ~E_NOTICE & ~E_WARNING & ~E_STRICT\n\
+RUN echo "error_reporting = E_ALL & ~E_NOTICE & ~E_WARNING & ~E_STRICT & ~E_DEPRECATED\n\
 display_errors = On" \
-> /usr/local/etc/php/conf.d/ilias-dev.ini
+> /usr/local/etc/php/conf.d/z_ilias-dev.ini
