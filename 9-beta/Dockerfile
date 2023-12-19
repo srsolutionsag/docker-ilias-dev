@@ -7,7 +7,7 @@ ENV ILIAS_DEVMODE=1
 RUN curl -sS https://getcomposer.org/installer \
     | php -- --2 --install-dir=/usr/local/bin --filename=composer
 
-ARG NODE_VERSION=18.15.0
+ARG NODE_VERSION=20.10.0
 RUN curl -o /opt/node.tar.xz -SL https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.xz \
     && mkdir /opt/node \
     && tar -xJf /opt/node.tar.xz -C /opt/node --strip-components=1 --no-same-owner \
