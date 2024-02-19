@@ -1,6 +1,9 @@
+# syntax = devthefuture/dockerfile-x
 ARG ILIAS_VERSION
 
 FROM srsolutions/ilias-base:${ILIAS_VERSION}
+
+INCLUDE ./custom/Dockerfile
 
 ENV ILIAS_DEVMODE=1
 
