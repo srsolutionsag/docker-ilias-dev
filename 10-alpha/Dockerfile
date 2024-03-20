@@ -15,14 +15,7 @@ RUN curl -o /opt/node.tar.xz -SL https://nodejs.org/dist/v${NODE_VERSION}/node-v
     && ln -s /opt/node/bin/node /usr/local/bin/node \
     && ln -s /opt/node/bin/npm /usr/local/bin/npm
 
-RUN case ${PHP_VERSION} in \
-    8.2*) \
-        pecl install xdebug \
-        ;; \
-    8.3*) \
-        pecl install xdebug-3.3.0alpha3 \
-        ;; \
-    esac
+RUN pecl install xdebug
 
 RUN echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)\n\
 xdebug.mode = develop,debug,profile\n\
