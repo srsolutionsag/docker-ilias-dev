@@ -2,13 +2,17 @@ ARG ILIAS_VERSION
 
 FROM srsolutions/ilias-base:${ILIAS_VERSION}
 
+ARG TARGETARCH
+
 ENV ILIAS_DEVMODE=1
 
 RUN curl -sS https://getcomposer.org/installer \
     | php -- --2 --install-dir=/usr/local/bin --filename=composer
 
 ARG NODE_VERSION=20.10.0
-RUN curl -o /opt/node.tar.xz -SL https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.xz \
+
+RUN case ${TARGETARCH} in amd64) NODE_ARCH=x64 ;; aarch64) NODE_ARCH=arm64 ;; *) exit 1 ;; esac \
+    && curl -o /opt/node.tar.xz -SL https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.xz \
     && mkdir /opt/node \
     && tar -xJf /opt/node.tar.xz -C /opt/node --strip-components=1 --no-same-owner \
     && rm /opt/node.tar.xz \
