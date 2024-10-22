@@ -6,9 +6,6 @@ ARG TARGETARCH
 
 ENV ILIAS_DEVMODE=1
 
-RUN curl -sS https://getcomposer.org/installer \
-    | php -- --2 --install-dir=/usr/local/bin --filename=composer
-
 ARG NODE_VERSION=20.10.0
 
 RUN case ${TARGETARCH} in amd64) NODE_ARCH=x64 ;; arm64) NODE_ARCH=arm64 ;; *) exit 1 ;; esac \

@@ -4,9 +4,6 @@ FROM srsolutions/ilias-base:${ILIAS_VERSION}
 
 ENV ILIAS_DEVMODE=1
 
-RUN curl -sS https://getcomposer.org/installer \
-    | php -- --2 --install-dir=/usr/local/bin --filename=composer
-
 RUN case ${PHP_VERSION} in \
     7.4*) \
         pecl install xdebug-3.1.6 \
