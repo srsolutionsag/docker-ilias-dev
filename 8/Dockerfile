@@ -9,7 +9,7 @@ RUN case ${PHP_VERSION} in \
         pecl install xdebug-3.1.6 \
         ;; \
     8.0*) \
-        pecl install xdebug \
+        pecl install xdebug-3.3.2 \
         ;; \
     esac
 
