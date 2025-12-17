@@ -6,7 +6,7 @@ ARG TARGETARCH
 
 ENV ILIAS_DEVMODE=1
 
-ARG NODE_VERSION=20.19.5
+ARG NODE_VERSION=24.12.0
 
 RUN case ${TARGETARCH} in amd64) NODE_ARCH=x64 ;; arm64) NODE_ARCH=arm64 ;; *) exit 1 ;; esac \
     && curl -o /opt/node.tar.xz -SL https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.xz \
